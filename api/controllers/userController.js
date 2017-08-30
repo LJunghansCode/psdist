@@ -60,53 +60,53 @@ module.exports = (() => {
       });
     },
     loginUser: (req, res) => {
-    let loginInfo = {}
-      if (!req.body.loginForm) {
-        loginInfo = {
-          email: req.body.email,
-          password: req.body.password
-        };
-      } else {
-         loginInfo = req.body.loginForm;
-      }
-      User.findOne({
-        email: loginInfo.email
-      }, (err, userFound) => {
-        if (!loginInfo.email || !loginInfo.password) {
-          res.json({
-            error: "field_missing"
-          });
-        } else if (userFound) {
-          bcrypt.compare(loginInfo.password, userFound.password, (err, bcryptRes) => {
-            if (bcryptRes === true) {
-              var sess = req.session;
-              sess.user = userFound;
-              sess.user.players = [];
-              res.json({
-                user: userFound
-              });
-            } else {
-              res.status(404).send({
-                Message: 'User Not Found'
-              });
-            }
-          });
+      let loginInfo = {}
+        if (!req.body.loginForm) {
+          loginInfo = {
+            email: req.body.email,
+            password: req.body.password
+          };
         } else {
-          res.status(404).send({
-            Message: 'User Not Found'
-          });
-          // res.json({error: "user_not_found"});
+           loginInfo = req.body.loginForm;
         }
-      });
+        User.findOne({
+          email: loginInfo.email
+        }, (err, userFound) => {
+          if (!loginInfo.email || !loginInfo.password) {
+            res.json({
+              error: "field_missing"
+            });
+          } else if (userFound) {
+            bcrypt.compare(loginInfo.password, userFound.password, (err, bcryptRes) => {
+              if (bcryptRes === true) {
+                var sess = req.session;
+                sess.user = userFound;
+                sess.user.players = [];
+                res.json({
+                  user: userFound
+                });
+              } else {
+                res.status(204).send({
+                  Message: 'User Not Found'
+                });
+              }
+            });
+          } else {
+            res.status(204).send({
+              Message: 'User Not Found'
+            });
+            // res.json({error: "user_not_found"});
+          }
+        });
     },
     getUser: (req, res) => {
       var sess = req.session;
       if (!sess.user) {
-        res.status(204);
-      } else {
-        res.json({
-          user: sess.user
+        res.status(204).send({
+          Message: 'No one is logged in'
         });
+      } else { 
+        res.json(sess.user);
       }
     },
     logoutUser: (req, res) => {

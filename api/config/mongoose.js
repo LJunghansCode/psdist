@@ -1,7 +1,7 @@
 const mongoose    = require('mongoose'),
       fs          = require('fs'),
       path        = require('path'),
-      models_path = path.join(__dirname,"../models"),
+      models_path = path.join(__dirname,"../Models"),
       reg         = new RegExp( ".js$", "i" ),
       dbNAME      = 'playersheet';
       dbURI       = `mongodb://localhost/${ dbNAME }`;
