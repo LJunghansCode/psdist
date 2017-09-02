@@ -12,7 +12,7 @@ module.exports = (() => {
   };
   return {
     imageForUser: (req, res) => {
-      console.log(req.body);
+ 
     },
     newUser: (req, res) => {
       const regInfo = req.body.userForm;
