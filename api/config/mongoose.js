@@ -4,7 +4,7 @@ const mongoose    = require('mongoose'),
       models_path = path.join(__dirname,"../models"),
       reg         = new RegExp( ".js$", "i" ),
       dbNAME      = 'playersheet';
-      dbURI       = `mongodb://luca:root@localhost/${ dbNAME }authSource:admin`;
+      dbURI       = `mongodb://luca:bogasbob@localhost/${ dbNAME }authSource:admin`;
 
 
 mongoose.connect(dbURI);
