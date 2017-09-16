@@ -16,11 +16,18 @@ module.exports = (() => {
     },
     newUser: (req, res) => {
       const regInfo = req.body.userForm;
+      if(!regInfo) {
+        res.stats(404).send({
+          Message: 'No Form, stop hacking'
+        });
+      }
       User.findOne({
         email: regInfo.email
       }, (err, userFound) => {
         if (err) {
-          console.log(err);
+          res.status(404).send({
+            Message: err
+          });
         }
         if (!regInfo.email || !regInfo.password) {
           res.status(404).send({
@@ -60,7 +67,7 @@ module.exports = (() => {
       });
     },
     loginUser: (req, res) => {
-      let loginInfo = {}
+      let loginInfo = {};
         if (!req.body.loginForm) {
           loginInfo = {
             email: req.body.email,

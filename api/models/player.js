@@ -49,6 +49,9 @@ borderColor: {type: String},
 companions:{type: []},
 notes: {type: []},
 experience: {type: Number},
-portraitUrl: {type: String}
+portraitUrl: {type: String},
+savingThrows: {},
+background: {type: String},
+inspiration: {type: String}
 });
 mongoose.model('player', playerSchema);

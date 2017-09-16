@@ -57,6 +57,7 @@ module.exports = (() => {
                     return handleError(err, res);
                 }
                 if (foundPlayer) {
+                    console.log(req.body.player)
                    foundPlayer.save();
                    res.json({data: foundPlayer});
                 } else {
